@@ -6,6 +6,8 @@
 
 + `ghcr.io/dazwilkin/crtsh-exporter:9c7e2e3`
 
+With thanks to [Oğuzhan Yilmaz](https://github.com/oguzhan-yilmaz), GitHub Actions now supports mutli-platform (`linux/amd64`,`linux/arm64`,`linux/arm64/v7`) builds.
+
 ## Example
 
 ```bash
