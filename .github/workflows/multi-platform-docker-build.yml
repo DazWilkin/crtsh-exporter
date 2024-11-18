@@ -58,21 +58,15 @@ jobs:
         run: echo "${{ secrets.SIGNING }}" > ./cosign.key
       - name: Sign container image
         run: |
-          printf "Digest(s): %s\n" ${{ steps.docker-build-push-multi-platform.outputs.digest }} 
-          DIGESTS=(
-            ${{ steps.docker-build-push-multi-platform.outputs.digest }}
-          )
-          for DIGEST in "${DIGESTS[@]}"
-          do
-            cosign sign \
-            --yes \
-            --key=./cosign.key \
-            --annotations="repo=${{ github.repository }}" \
-            --annotations="workflow=${{ github.workflow }}" \
-            --annotations="commit=${{ github.sha }}" \
-            --annotations="version=${{ env.VERSION }}" \
-            ${{ env.REGISTRY }}/${{ env.REPO }}@${DIGEST}
-          done
+          DIGEST=${{ steps.docker-build-push-multi-platform.outputs.digest }}
+          cosign sign \
+          --yes \
+          --key=./cosign.key \
+          --annotations="repo=${{ github.repository }}" \
+          --annotations="workflow=${{ github.workflow }}" \
+          --annotations="commit=${{ github.sha }}" \
+          --annotations="version=${{ env.VERSION }}" \
+          ${{ env.REGISTRY }}/${{ env.REPO }}@${DIGEST}
         env:
           COSIGN_PASSWORD: ""
 
