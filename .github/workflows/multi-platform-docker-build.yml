@@ -40,43 +40,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR }}
           
-      - name: Buildx linux/amd64 Docker Image
-        id: docker-build-push-amd64
+      - name: Buildx Multi Platform Linux Docker Images
+        id: docker-build-push-multi-platform
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64/v7,linux/arm64
           build-args: |
             VERSION=${{ env.SHA_SHORT }}
             COMMIT=${{ github.sha }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ env.SHA_SHORT }},${{ env.REGISTRY }}/${{ env.REPO }}:latest
-
-      - name: Buildx linux/arm64 Docker Image
-        id: docker-build-push-arm64
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/arm64
-          build-args: |
-            VERSION=${{ env.VERSION }}
-            COMMIT=${{ github.sha }}
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ env.SHA_SHORT }},${{ env.REGISTRY }}/${{ env.REPO }}:latest
-
-      - name: Buildx linux/arm64/v8 Docker Image
-        id: docker-build-push-arm64-v8
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/arm64/v8
-          build-args: |
-            VERSION=${{ env.VERSION }}
-            COMMIT=${{ github.sha }}
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ env.SHA_SHORT }},${{ env.REGISTRY }}/${{ env.REPO }}:latest
-        continue-on-error: true  
-
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@main
@@ -85,9 +59,7 @@ jobs:
       - name: Sign container image
         run: |
           DIGESTS=(
-            ${{ steps.docker-build-push-amd64.digest }}
-            ${{ steps.docker-build-push-arm64.digest }}
-            ${{ steps.docker-build-push-arm64-v8.digest }}
+            ${{ steps.docker-build-push-multi-platform.digest }}
           )
           for DIGEST in "${DIGESTS[@]}"
           do
@@ -102,7 +74,7 @@ jobs:
           done
         env:
           COSIGN_PASSWORD: ""
-      
+
       - name: revise occurrences of the image
         run: |
           git config --local user.email "action@github.com"
