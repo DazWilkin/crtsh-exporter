@@ -42,7 +42,7 @@ jobs:
           
       - name: Buildx Multi Platform Linux Docker Images
         id: docker-build-push-multi-platform
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64/v7,linux/arm64
