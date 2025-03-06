@@ -40,8 +40,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR }}
 
-      - name: Pull latest changes
-        run: git pull origin master
+      # - name: Pull latest changes
+      #   run: git pull origin master
 
       - name: Buildx Multi Platform Linux Docker Images
         id: docker-build-push-multi-platform
