@@ -1,4 +1,4 @@
-ARG GOLANG_VERSION=1.23.3
+ARG GOLANG_VERSION=1.24
 
 # TARGETOS and TARGETARCH will be populated at 'docker build'
 ARG TARGETOS  
