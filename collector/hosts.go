@@ -125,6 +125,14 @@ func (c *HostsCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 		defer resp.Body.Close()
 
+		if resp.StatusCode != http.StatusOK {
+			msg := "non-200 response"
+			log.Info(msg,
+				"code", resp.StatusCode,
+			)
+			continue
+		}
+
 		log.Info("Reading HTTP response")
 		b, err := io.ReadAll(resp.Body)
 		if err != nil {
