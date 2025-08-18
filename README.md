@@ -4,7 +4,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/DazWilkin/crtsh-exporter.svg)](https://pkg.go.dev/github.com/DazWilkin/crtsh-exporter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/crtsh-exporter)](https://goreportcard.com/report/github.com/DazWilkin/crtsh-exporter)
 
-+ `ghcr.io/dazwilkin/crtsh-exporter:d940c54`
++ `ghcr.io/dazwilkin/crtsh-exporter:abff22c`
 
 With thanks to [Oğuzhan Yilmaz](https://github.com/oguzhan-yilmaz), GitHub Actions now supports mutli-platform (`linux/amd64`,`linux/arm64`,`linux/arm64/v7`) builds.
 
@@ -49,7 +49,7 @@ podman run \
 --interactive --tty --rm \
 --name=crtsh-exporter \
 --publish=${HOST_PORT}:${CONT_PORT}/tcp \
-ghcr.io/dazwilkin/crtsh-exporter:d940c54 \
+ghcr.io/dazwilkin/crtsh-exporter:abff22c \
 --hosts=${HOSTS} \
 --endpoint=:${CONT_PORT} \
 --path=/metrics
@@ -87,7 +87,7 @@ quay.io/prometheus/prometheus:${VERS} \
 ```bash
 cosign verify \
 --key=./cosign.pub \
-ghcr.io/dazwilkin/crtsh-exporter:d940c54
+ghcr.io/dazwilkin/crtsh-exporter:abff22c
 ```
 
 > **NOTE** `cosign.pub` may be downloaded [here](./cosign.pub)
