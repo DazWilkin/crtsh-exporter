@@ -48,11 +48,15 @@ var (
 
 func handleHealthz(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
+	// nolint:errcheck
 	w.Write([]byte("ok"))
 }
 func handleRoot(w http.ResponseWriter, _ *http.Request) {
+	// nolint:errcheck
 	w.Header().Set("Content-Type", "text/html; charset=UTF-8")
+	// nolint:errcheck
 	fmt.Fprint(w)
+	// nolint:errcheck
 	tRoot.Execute(w, struct {
 		Metrics string
 	}{

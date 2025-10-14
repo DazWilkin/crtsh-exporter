@@ -90,7 +90,11 @@ func (c *DomainCollector) Collect(ch chan<- prometheus.Metric) {
 		log.Info(msg)
 		return
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Error("unable to close response body", "err", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		msg := "non-200 response"

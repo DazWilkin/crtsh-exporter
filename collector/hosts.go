@@ -123,7 +123,11 @@ func (c *HostsCollector) Collect(ch chan<- prometheus.Metric) {
 			log.Info(msg)
 			continue
 		}
-		defer resp.Body.Close()
+		defer func() {
+			if err := resp.Body.Close(); err != nil {
+				log.Error("unable to close response body", "error", err)
+			}
+		}()
 
 		if resp.StatusCode != http.StatusOK {
 			msg := "non-200 response"
