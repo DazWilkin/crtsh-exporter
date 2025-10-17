@@ -39,8 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: golangci
     env:
-      REGISTRY: "ghcr.io" 
-      REPO: "dazwilkin/crtsh-exporter" 
+      REGISTRY: "ghcr.io"
+      REPO: "dazwilkin/crtsh-exporter"
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -53,7 +53,7 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
