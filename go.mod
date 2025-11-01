@@ -2,10 +2,7 @@ module github.com/DazWilkin/crtsh-exporter
 
 go 1.25.3
 
-require (
-	github.com/prometheus/client_golang v1.23.2
-	golang.org/x/time v0.13.0
-)
+require github.com/prometheus/client_golang v1.23.2
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
