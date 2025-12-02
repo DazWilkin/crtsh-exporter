@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup
         uses: actions/setup-go@v6
@@ -43,7 +43,7 @@ jobs:
       REPO: "dazwilkin/crtsh-exporter"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set SHA_SHORT env var and get Kernel version
         id: vars
