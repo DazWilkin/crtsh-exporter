@@ -1,6 +1,6 @@
 # Prometheus Exporter for [`crt.sh`](https://crt.sh)
 
-[![build](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/multi-platform-docker-build.yml/badge.svg)](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/multi-platform-docker-build.yml)
+[![build](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/build.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/DazWilkin/crtsh-exporter.svg)](https://pkg.go.dev/github.com/DazWilkin/crtsh-exporter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/crtsh-exporter)](https://goreportcard.com/report/github.com/DazWilkin/crtsh-exporter)
 
