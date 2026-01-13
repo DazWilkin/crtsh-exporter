@@ -1,12 +1,12 @@
 # Prometheus Exporter for [`crt.sh`](https://crt.sh)
 
-[![build](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/multi-platform-docker-build.yml/badge.svg)](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/multi-platform-docker-build.yml)
+[![build](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/DazWilkin/crtsh-exporter/actions/workflows/build.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/DazWilkin/crtsh-exporter.svg)](https://pkg.go.dev/github.com/DazWilkin/crtsh-exporter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/crtsh-exporter)](https://goreportcard.com/report/github.com/DazWilkin/crtsh-exporter)
 
-+ `ghcr.io/dazwilkin/crtsh-exporter:4398b54`
++ `ghcr.io/dazwilkin/crtsh-exporter:a4a2214`
 
-With thanks to [Oğuzhan Yilmaz](https://github.com/oguzhan-yilmaz), GitHub Actions now supports mutli-platform (`linux/amd64`,`linux/arm64`,`linux/arm64/v7`) builds.
+With thanks to [Oğuzhan Yilmaz](https://github.com/oguzhan-yilmaz), GitHub Actions now supports multi-platform (`linux/amd64`,`linux/arm64`,`linux/arm64/v7`) builds.
 
 ## Example
 
@@ -49,7 +49,7 @@ podman run \
 --interactive --tty --rm \
 --name=crtsh-exporter \
 --publish=${HOST_PORT}:${CONT_PORT}/tcp \
-ghcr.io/dazwilkin/crtsh-exporter:4398b54 \
+ghcr.io/dazwilkin/crtsh-exporter:a4a2214 \
 --hosts=${HOSTS} \
 --endpoint=:${CONT_PORT} \
 --path=/metrics
@@ -87,7 +87,7 @@ quay.io/prometheus/prometheus:${VERS} \
 ```bash
 cosign verify \
 --key=./cosign.pub \
-ghcr.io/dazwilkin/crtsh-exporter:4398b54
+ghcr.io/dazwilkin/crtsh-exporter:a4a2214
 ```
 
 > **NOTE** `cosign.pub` may be downloaded [here](./cosign.pub)
