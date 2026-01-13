@@ -1,5 +1,4 @@
 name: build-containers
-
 on:
   push:
     branches:
@@ -11,29 +10,24 @@ on:
       - '**.key'
       - '**.pub'
       - '**.sh'
-
-  # schedule:
-  #   # This will run at 11:00 PM UTC every Monday.
-  #   - cron: '0 23 * * 1'
-
+      # schedule:
+      #   # This will run at 11:00 PM UTC every Monday.
+      #   - cron: '0 23 * * 1'
 jobs:
   golangci:
     name: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-
+        uses: actions/checkout@v6
       - name: Setup
         uses: actions/setup-go@v6
         with:
           go-version: stable
-
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           version: latest
-
   crtsh-exporter:
     name: crtsh-exporter
     runs-on: ubuntu-latest
@@ -43,39 +37,35 @@ jobs:
       REPO: "dazwilkin/crtsh-exporter"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-
+        uses: actions/checkout@v6
       - name: Set SHA_SHORT env var and get Kernel version
         id: vars
         run: |
           echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> ${GITHUB_ENV}
           echo "VERSION=$(uname --kernel-release)" >> ${GITHUB_ENV}
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-
       - name: Login
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR }}
-
       - name: Buildx Multi Platform Linux Docker Images
         id: docker-build-push-multi-platform
         uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm64
           build-args: |
             VERSION=${{ env.SHA_SHORT }}
             COMMIT=${{ github.sha }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ env.SHA_SHORT }},${{ env.REGISTRY }}/${{ env.REPO }}:latest
-
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Install Cosign
         uses: sigstore/cosign-installer@main
       - name: Write signing key to disk (only needed for `cosign sign --key`)
@@ -93,7 +83,6 @@ jobs:
           ${{ env.REGISTRY }}/${{ env.REPO }}@${DIGEST}
         env:
           COSIGN_PASSWORD: ""
-
       - name: revise occurrences of the image
         run: |
           git config --local user.email "action@github.com"
